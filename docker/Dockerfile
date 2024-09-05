@@ -2,11 +2,15 @@ ARG ARCH
 ARG VERSION
 ARG VARIANT
 
-FROM scratch:${VERSION}
+FROM debian:bookworm-slim
 
-ARG ARCH
-ARG VERSION
-ARG VARIANT
+RUN apt-get update && \
+    apt-get --yes --no-install-recommends install \
+    vsftpd db-util && \
+    apt-get --yes clean && \
+    rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /var/run/vsftpd/empty
+RUN chmod -w /var/run/vsftpd/empty
+ADD docker/fs/ /
 
-RUN [ ! -z "${ARCH}" ]
-RUN [ ! -z "${VERSION}" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
