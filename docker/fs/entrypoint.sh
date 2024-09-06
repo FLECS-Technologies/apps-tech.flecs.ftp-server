@@ -30,23 +30,8 @@ else
     cp /etc/vsftpd/vusers.txt /etc/vsftpd/vusers.tmp.txt
 fi
 
-LINE_NUMBER=1
-while IFS= read -r LINE; do
-    if (( LINE_NUMBER % 2 == 1 )); then
-        if [ -d "/home/vftp/$LINE/ftp" ]; then
-            echo "Directories of virtual user $LINE exist."
-        else
-            echo "Creating directories of virtual user $LINE"
-            mkdir -p "/home/vftp/$LINE/ftp"
-            chown -R ftp:ftp "/home/vftp/$LINE"
-            chmod -w "/home/vftp/$LINE"
-        fi
-    fi
-    ((LINE_NUMBER++))
-done < /etc/vsftpd/vusers.tmp.txt
-
 db_load -T -t hash -f /etc/vsftpd/vusers.tmp.txt /etc/vsftpd/vsftpd-virtual-user.db
 chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
 rm /etc/vsftpd/vusers.tmp.txt
 
-exec vsftpd
+exec vsftpd "$@"

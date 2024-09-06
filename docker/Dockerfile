@@ -9,6 +9,8 @@ RUN apt-get update && \
     vsftpd db-util && \
     apt-get --yes clean && \
     rm -rf /var/lib/apt/lists/*
+RUN mkdir -p /srv/svftp/
+RUN chown ftp:ftp /srv/svftp/
 RUN mkdir -p /var/run/vsftpd/empty
 RUN chmod -w /var/run/vsftpd/empty
 ADD docker/fs/ /

@@ -13,6 +13,6 @@
     "21"
   ],
   "volumes": [
-    "virtual-home-dirs:/home/vftp"
+    "ftp-data:/srv/vsftp"
   ]
 }
