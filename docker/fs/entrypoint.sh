@@ -33,8 +33,14 @@ fi
 LINE_NUMBER=1
 while IFS= read -r LINE; do
     if (( LINE_NUMBER % 2 == 1 )); then
-        echo "Creating home directory for virtual user $LINE"
-        mkdir -p "/home/vftp/$LINE"
+        if [ -d "/home/vftp/$LINE/ftp" ]; then
+            echo "Directories of virtual user $LINE exist."
+        else
+            echo "Creating directories of virtual user $LINE"
+            mkdir -p "/home/vftp/$LINE/ftp"
+            chown -R ftp:ftp "/home/vftp/$LINE"
+            chmod -w "/home/vftp/$LINE"
+        fi
     fi
     ((LINE_NUMBER++))
 done < /etc/vsftpd/vusers.tmp.txt
