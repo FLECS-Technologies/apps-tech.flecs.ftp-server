@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/FLECS-Technologies/app-sdk/main/manifest.schema.json",
-  "_schemaVersion": "2.0.0",
+  "_schemaVersion": "3.0.0",
   "app": "tech.flecs.ftp-server",
   "version": "##VERSION##",
   "revision": "0",
