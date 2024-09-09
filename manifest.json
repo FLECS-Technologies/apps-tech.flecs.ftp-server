@@ -7,10 +7,11 @@
   "image": "flecs.azurecr.io/tech.flecs.ftp-server",
   "conffiles": [
     "vsftpd.conf:/etc/vsftpd.conf",
+    "ftp-proxy.conf:/etc/proxy-suite/ftp-proxy.conf",
     "vusers.txt:/etc/vsftpd/vusers.txt"
   ],
   "ports": [
-    "21"
+    "21:2121"
   ],
   "volumes": [
     "ftp-data:/srv/vsftp"

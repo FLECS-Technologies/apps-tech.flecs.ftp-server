@@ -34,4 +34,4 @@ db_load -T -t hash -f /etc/vsftpd/vusers.tmp.txt /etc/vsftpd/vsftpd-virtual-user
 chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
 rm /etc/vsftpd/vusers.tmp.txt
 
-exec vsftpd "$@"
+exec vsftpd "$@" & ftp-proxy -n
