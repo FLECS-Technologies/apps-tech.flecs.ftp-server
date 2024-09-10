@@ -30,8 +30,13 @@ else
     cp /etc/vsftpd/vusers.txt /etc/vsftpd/vusers.tmp.txt
 fi
 
+if [ -n "$FTP_SERVER_ADDRESS" ]; then
+    echo "Using $FTP_SERVER_ADDRESS as address for passive mode (pasv_address)"
+    PASV_ADDRESS="-opasv_address=$FTP_SERVER_ADDRESS"
+fi
+
 db_load -T -t hash -f /etc/vsftpd/vusers.tmp.txt /etc/vsftpd/vsftpd-virtual-user.db
 chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
 rm /etc/vsftpd/vusers.tmp.txt
 
-exec vsftpd "$@"
+exec vsftpd $PASV_ADDRESS "$@"
